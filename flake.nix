@@ -33,20 +33,19 @@
     in {
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
-          packages = with pkgs;
-            [
-              # OCaml
-              ocaml
-              ocamlformat
-              opam
-              # Rust
-              rustToolchain
-              openssl
-              pkg-config
-              rust-analyzer
-              # Misc
-              graphviz
-            ];
+          packages = with pkgs; [
+            # OCaml
+            ocaml
+            ocamlformat
+            opam
+            # Rust
+            rustToolchain
+            openssl
+            pkg-config
+            rust-analyzer
+            # Misc
+            graphviz
+          ];
         };
       });
     };
