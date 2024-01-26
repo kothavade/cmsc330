@@ -34,8 +34,19 @@
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
           packages = with pkgs;
-            [ ocaml ocamlformat rustToolchain openssl pkg-config rust-analyzer ]
-            ++ (with pkgs.ocamlPackages; [ dune_3 odoc ]);
+            [
+              # OCaml
+              ocaml
+              ocamlformat
+              opam
+              # Rust
+              rustToolchain
+              openssl
+              pkg-config
+              rust-analyzer
+              # Misc
+              graphviz
+            ];
         };
       });
     };
