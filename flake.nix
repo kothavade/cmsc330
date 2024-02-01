@@ -14,15 +14,9 @@
       overlays = [
         rust-overlay.overlays.default
         (final: prev: {
-          rustToolchain = let rust = prev.rust-bin;
-          in if builtins.pathExists ./rust-toolchain.toml then
-            rust.fromRustupToolchainFile ./rust-toolchain.toml
-          else if builtins.pathExists ./rust-toolchain then
-            rust.fromRustupToolchainFile ./rust-toolchain
-          else
-            rust.stable.latest.default.override {
-              extensions = [ "rust-src" "rustfmt" ];
-            };
+          rustToolchain = prev.rust-bin.stable.latest.default.override {
+            extensions = [ "rust-src" "rustfmt" "clippy" "rust-analyzer" ];
+          };
         })
       ];
       supportedSystems =
@@ -33,19 +27,23 @@
     in {
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
-          packages = with pkgs; [
-            # OCaml
-            ocaml
-            ocamlformat
-            opam
-            # Rust
-            rustToolchain
-            openssl
-            pkg-config
-            rust-analyzer
-            # Misc
-            graphviz
-          ];
+          packages = with pkgs;
+            [
+              # OCaml
+              ocaml
+              ocamlformat
+              # Rust
+              rustToolchain
+              # Misc
+              graphviz
+              gradescope-submit
+            ] ++ (with pkgs.ocamlPackages; [
+              ocaml-lsp
+              dune_3
+              utop
+              ounit
+              qcheck
+            ]);
         };
       });
     };
