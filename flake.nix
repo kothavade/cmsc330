@@ -43,6 +43,7 @@
               utop
               ounit
               qcheck
+              re
             ]);
         };
       });
