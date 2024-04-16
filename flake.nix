@@ -47,7 +47,9 @@
             ounit
             qcheck
             re
+            menhir
             ppx_deriving
+            ppx_jane
           ]);
       };
     });
